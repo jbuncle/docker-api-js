@@ -1,0 +1,5 @@
+{
+    "extends": [
+        "@jbuncle/jbuncle"
+    ]
+}

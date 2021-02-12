@@ -1,0 +1,42 @@
+
+stages:
+    - build
+    - deploy
+
+cache:
+  paths:
+    - node_modules/
+
+image: cyberpearuk/node-build-docker
+
+build-and-tag:
+    stage: build
+    script:
+        - npm install
+        - npm run build
+        - git-tag
+    only:
+        - master
+
+pack:
+    stage: build
+    script:
+        - npm install
+        - npm run build
+        - npm pack
+    artifacts:
+        paths:
+            - '*.tgz'
+    only:
+        - tags
+
+publish:
+    stage: deploy
+    script:
+        - RELEASE="$(ls *.tgz | tail -n 1)"
+        - echo $RELEASE
+        - npm publish $RELEASE --registry https://nexus.jbuncle.co.uk/repository/npm-private/
+    only:
+        - tags
+    dependencies: 
+        - pack
