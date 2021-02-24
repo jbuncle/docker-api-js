@@ -1,6 +1,6 @@
 import type { ClientRequest, IncomingMessage, RequestOptions } from "http";
 import { request } from "http";
-import { hasProperty } from "./ObjectUtils";
+import { ObjectUtils } from "@jbuncle/core-js";
 
 
 /**
@@ -41,7 +41,7 @@ export class DockerSocket {
                     } else {
                         const responseData: Record<string, unknown> = JSON.parse(rawData) as Record<string, unknown>;
 
-                        if (hasProperty(responseData, `message`)) {
+                        if (ObjectUtils.hasProperty(responseData, `message`)) {
                             const error: { message: string } = responseData as { message: string };
                             reject(new Error(error.message));
                         } else {
@@ -82,7 +82,7 @@ export class DockerSocket {
                 res.on(`end`, () => {
                     const responseData: Record<string, unknown> = JSON.parse(rawData) as Record<string, unknown>;
 
-                    if (hasProperty(responseData, `message`)) {
+                    if (ObjectUtils.hasProperty(responseData, `message`)) {
                         const error: { message: string } = responseData as { message: string };
                         reject(new Error(error.message));
                     } else {
