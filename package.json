@@ -14,7 +14,6 @@
     "dependencies": {
         "@jbuncle/core-js": "^1.2.0",
         "@jbuncle/logging-js": "^1.92.0",
-        "acme-client": "^4.1.2",
         "node-forge": "^0.10.0"
     },
     "devDependencies": {
